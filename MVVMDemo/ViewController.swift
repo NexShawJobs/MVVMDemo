@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         position1.text = viewModel?.positionTitle
         self.getData()
     }
-    
+    // work on dynamic binding 
     func getData(){
         var str = "{\"header\":{\"title\":\"This is your header title\"},\"details\":[{\"title\":\"1. This is your first subtitle.\",\"position\":\"1\"},{\"title\":\"2. This is your second subtitle.\",\"position\":\"2\"},{\"title\":\"3. This is your third subtitle\",\"position\":\"3\"}]}"
         let data = Data(str.utf8)
