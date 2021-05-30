@@ -14,13 +14,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var position2: UILabel!
     @IBOutlet weak var position3: UILabel!
     
-    var viewModel:SimpleMVVMViewModel?
+    var viewModel:MVVMDemoViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = simpleMVVMViewModel
-        titleValue.text = viewModel?.headerValue
-        position1.text = viewModel?.positionPosition
+        viewModel = mVVMDemoViewModel
+        titleValue.text = viewModel?.headerTitle
+        position1.text = viewModel?.positionTitle
         self.getData()
     }
     
@@ -33,6 +33,7 @@ class ViewController: UIViewController {
             if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 // try to read out a string array
                 if let positions = json["details"] as? [Dictionary<String, Any>] {
+                    print(json)
                     for position in positions {
                         print(position)
                     }
@@ -51,9 +52,9 @@ class ViewController: UIViewController {
 }
 
 //ViewModel
-var simpleMVVMViewModel: SimpleMVVMViewModel = SimpleMVVMViewModel(position: p, header: h)
+var mVVMDemoViewModel: MVVMDemoViewModel = MVVMDemoViewModel(position: p, header: h)
 
-class SimpleMVVMViewModel {
+class MVVMDemoViewModel {
     
     private let position:Position
     private let header: Header
@@ -62,31 +63,31 @@ class SimpleMVVMViewModel {
         self.position = position
         self.header = header
     }
-    
     public var positionTitle: String {
         return position.title
     }
-    public var positionPosition: String {
-        return position.postion
+    public var positionPosition: Int {
+        return position.position
     }
     public var headerTitle: String {
         return header.title
     }
-    public var headerValue: String {
-        return header.value
-    }
+
 }
+//End view model
 
 //Model
-struct Position {
-    let title:String
-    let postion: String
-}
-
 struct Header {
-    let title: String
-    let value: String
+    var title: String
+}
+struct details {
+    var positins:[Position]
+}
+struct Position {
+    var position: Int
+    var title: String
 }
 
-let p:Position = Position(title: "tp", postion: "pp")
-let h:Header = Header(title: "th", value: "vh")
+let p:Position = Position(position: 1, title: "title1")
+let h:Header = Header(title: "header title")
+//End Model
